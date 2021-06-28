@@ -1,0 +1,21 @@
+<div class="row timerContainer justify-content-around">
+  <div class="col-lg-5 text-center timerCard">
+    <app-countdowntimer [currentTime]="currentTimer"></app-countdowntimer>
+  </div>
+  <div class="col-lg-6 timerCard">
+    <app-timerlimit
+      (timerLimit)="getTimer($event)"
+      (pauseTimerStatus)="pauseTimer($event)"
+      (resetCompleteTimer)="resetTimer($event)"
+      [pausedTimeCollection]="pausedTimeCollection"
+    ></app-timerlimit>
+  </div>
+  <div class="col-lg-5 mt-5">
+    <app-timestamps
+      [dateAndTimeOccurance]="dateAndTimeOccurance"
+    ></app-timestamps>
+  </div>
+  <div class="col-lg-6 mt-5">
+    <app-clickcount [startPauseCount]="startPauseCount"></app-clickcount>
+  </div>
+</div>

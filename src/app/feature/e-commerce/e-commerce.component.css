@@ -1,0 +1,30 @@
+.ViewFilter {
+  display: flex;
+  justify-content: flex-end;
+}
+.productView button {
+  background: none;
+  border: none;
+}
+.productView {
+  background-color: #ffc34d;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+.productView button:first-of-type {
+  border-right: 2px solid;
+}
+.card {
+  padding: 0;
+  margin: 10px 0px;
+}
+
+.col-lg-6 .card {
+  width: 300px;
+  height: auto;
+  margin: 10px auto;
+}
+
+h2.card-title {
+  font-size: 1.25rem;
+}

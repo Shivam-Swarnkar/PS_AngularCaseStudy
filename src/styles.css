@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+
+.navbar-light .navbar-brand {
+  color: rgb(153 81 81);
+}
+
+.navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand.active{
+  color: rgba(0,0,0,.9);
+}
+
+.contain{
+  display: flex;
+  justify-content: center;
+}
+
+main{
+  margin-top: 20px;
+}

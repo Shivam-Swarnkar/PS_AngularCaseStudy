@@ -1,0 +1,58 @@
+<div class="ViewFilter">
+  <div class="productView">
+    <button
+      (click)="gridView()"
+      attr.aria-pressed="{{ currentView == 'grid' ? true : false }}"
+    >
+      <i class="fa fa-th-large fa-2x"></i>
+    </button>
+    <span class="vl"></span>
+    <button
+      (click)="listView()"
+      attr.aria-pressed="{{ currentView == 'list' ? true : false }}"
+    >
+      <i class="fa fa-bars fa-2x"></i>
+    </button>
+  </div>
+
+  <select (change)="sortPriceOrder($event)">
+    <option *ngFor="let price of priceOrder" [value]="price.value">
+      {{ price.name | uppercase }}
+    </option>
+  </select>
+</div>
+
+<div class="productDetails row">
+  <h2 *ngIf="loading && !errorMessage">Loading...</h2>
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    <h2>Error occured</h2>
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div
+    class="text-center col"
+    [ngClass]="{
+      'col-lg-3': currentView == 'grid',
+      'col-lg-6': currentView == 'list'
+    }"
+    *ngFor="let product of productData; let i = index"
+  >
+    <div class="card">
+      <div class="food-card_img">
+        <img
+          src="https://ik.imagekit.io/demo/img/image2.jpeg?tr=w-1,h-1:w-253,h-200"
+          alt="dominant color placeholder"
+          *ngIf="!product.product_img"
+        />
+        <img
+          src="{{ product.product_img.src.large }}"
+          class="card-img-top"
+          alt=""
+          *ngIf="product.product_img"
+        />
+        <div class="card-body"></div>
+        <h2 class="card-title">{{ product.product_name }}</h2>
+        <p>{{ priceText }}${{ product.product_price }}</p>
+      </div>
+    </div>
+  </div>
+</div>

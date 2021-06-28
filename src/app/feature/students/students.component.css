@@ -1,0 +1,9 @@
+table,
+table tr th,
+table tr td {
+  border: solid;
+}
+
+table tr th {
+  cursor: pointer;
+}

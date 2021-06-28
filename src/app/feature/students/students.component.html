@@ -1,0 +1,38 @@
+<div>
+  <h2 *ngIf="isLoading && !errorMessage">Loading...</h2>
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    <h3>Error occured</h3>
+    <p>{{ errorMessage }}</p>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th
+          scope="col"
+          *ngFor="let key of studentsDataKey"
+          appSort
+          [keyName]="key"
+          [studentsInfo]="studentsData"
+          data-order="default"
+        >
+          {{ key | titlecase }}
+          <span class="float-right">
+            <i class="fa fa-sort d-block"></i>
+            <i class="fa fa-sort-up d-none"></i>
+            <i class="fa fa-sort-down d-none"></i>
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of studentsData">
+        <td>{{ student.name }}</td>
+        <td>{{ student.class }}</td>
+        <td>{{ student.section }}</td>
+        <td>{{ student.sub1 }}</td>
+        <td>{{ student.sub2 }}</td>
+        <td>{{ student.sub3 }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

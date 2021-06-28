@@ -1,0 +1,25 @@
+<div class="row justify-content-around p-3">
+  <div class="col-lg-4">
+    <label for="timerLimit">Enter Timer Limit</label>
+  </div>
+
+  <div class="col-lg-5">
+    <input type="number" id="timerLimit" min="1" [(ngModel)]="timeLimitSet" />
+    <div class="row justify-content-between p-3 timerLimitButton">
+      <div>
+        <button (click)="startTimer(timeLimitSet)">Start</button>
+        <span>/</span>
+        <button (click)="pauseTimer()">Pause</button>
+      </div>
+      <div>
+        <button (click)="resetTimer()">reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-10 pausedAt">
+    <p *ngFor="let pausedAt of pausedTimeCollection">
+      paused at {{ pausedAt }}
+    </p>
+  </div>
+</div>
