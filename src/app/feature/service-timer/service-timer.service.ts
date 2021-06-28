@@ -1,11 +1,12 @@
 import { Subject } from 'rxjs';
+import { TimerModel } from '../../shared/timer.model';
 
 export class ServiceTimerService {
   timerLimitFinal = null;
   pauseTime!: boolean;
   currentTime: any;
   timerCurrentStatus = {
-    currentState: 'not started',
+    currentState: TimerModel.notStartedState,
     currentTime: null,
   };
   resetCompleterTime!: boolean;
@@ -26,10 +27,10 @@ export class ServiceTimerService {
 
   getTimer(timeLimit: any) {
     this.timerLimitFinal = timeLimit;
-    if (this.timerCurrentStatus.currentState == 'paused') {
+    if (this.timerCurrentStatus.currentState == TimerModel.pausedState) {
       this.startTimer(this.timerCurrentStatus.currentTime);
     } else if (
-      this.timerCurrentStatus.currentState == 'not started' &&
+      this.timerCurrentStatus.currentState == TimerModel.notStartedState &&
       this.timerLimitFinal
     ) {
       this.resetEverything();
@@ -39,15 +40,15 @@ export class ServiceTimerService {
 
   startTimer(startTime: any) {
     clearInterval(this.timerInterval);
-    this.setCurrentStatus('started', this.currentTime);
-    this.setDateAndTimeOccurance('Started');
+    this.setCurrentStatus(TimerModel.startedState, this.currentTime);
+    this.setDateAndTimeOccurance(TimerModel.startedState);
     this.countChange(true);
     this.currentTime = startTime;
     this.currentTimer.next(this.currentTime);
     this.timerInterval = setInterval(() => {
       if (this.currentTime <= 0) {
         clearInterval(this.timerInterval);
-        this.setCurrentStatus('not started', this.currentTime);
+        this.setCurrentStatus(TimerModel.notStartedState, this.currentTime);
       } else {
         this.currentTime -= 1;
         this.currentTimer.next(this.currentTime);
@@ -57,11 +58,11 @@ export class ServiceTimerService {
 
   pauseTimer() {
     clearInterval(this.timerInterval);
-    if (this.timerCurrentStatus.currentState == 'started') {
+    if (this.timerCurrentStatus.currentState == TimerModel.startedState) {
       this.collectPausedTime();
-      this.setDateAndTimeOccurance('Paused');
+      this.setDateAndTimeOccurance(TimerModel.pausedState);
       this.countChange(false);
-      this.setCurrentStatus('paused', this.currentTime);
+      this.setCurrentStatus(TimerModel.pausedState, this.currentTime);
     }
   }
 
@@ -71,7 +72,7 @@ export class ServiceTimerService {
     this.currentTimer.next(this.currentTime);
     this.resetCompleterTime = false;
     this.resetEverything();
-    this.setCurrentStatus('not started', this.currentTime);
+    this.setCurrentStatus(TimerModel.notStartedState, this.currentTime);
   }
 
   setCurrentStatus(status: any, timer: any) {
@@ -106,9 +107,9 @@ export class ServiceTimerService {
     this.dateAndTimeStamp.next(this.dateAndTimeOccurance);
   }
   resetEverything() {
-    this.pausedTimeCollection.length = 0;
-    this.dateAndTimeOccurance.length = 0;
-    this.startPauseCount.started = 0;
-    this.startPauseCount.paused = 0;
+    this.pausedTimeCollection.length = TimerModel.resetState;
+    this.dateAndTimeOccurance.length = TimerModel.resetState;
+    this.startPauseCount.started = TimerModel.resetState;
+    this.startPauseCount.paused = TimerModel.resetState;
   }
 }

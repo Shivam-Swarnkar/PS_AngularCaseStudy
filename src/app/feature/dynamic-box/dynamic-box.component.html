@@ -1,17 +1,19 @@
-<div class="container">
+<div class="container" #virtualScroll>
   <cdk-virtual-scroll-viewport
     [itemSize]="50"
     class="viewport cdkBox"
     minBufferPx="100"
     maxBufferPx="250"
   >
-    <div
-      class="border dynamicBox m-2"
-      *cdkVirtualFor="let data of dataCount; let i = index"
-    >
-      <button (click)="getValue(i + 1)" class="btn actionBtn">
-        Check number
-      </button>
+    <div class="row">
+      <div
+        class="border dynamicBox m-2"
+        *cdkVirtualFor="let data of dataCount; let i = index"
+      >
+        <button (click)="getValue(i + 1)" class="btn actionBtn">
+          Check number
+        </button>
+      </div>
     </div>
   </cdk-virtual-scroll-viewport>
 </div>

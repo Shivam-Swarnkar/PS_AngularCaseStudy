@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { TimerModel } from '../../shared/timer.model';
 
 @Component({
   selector: 'app-timer',
@@ -10,7 +11,7 @@ export class TimerComponent implements OnInit {
   pauseTime!: boolean;
   currentTime!: number;
   timerCurrentStatus = {
-    currentState: 'not started',
+    currentState: TimerModel.notStartedState,
     currentTime: null,
   };
   resetCompleterTime!: boolean;
@@ -31,10 +32,10 @@ export class TimerComponent implements OnInit {
 
   getTimer(timeLimit: any) {
     this.timerLimitFinal = timeLimit;
-    if (this.timerCurrentStatus.currentState == 'paused') {
+    if (this.timerCurrentStatus.currentState == TimerModel.pausedState) {
       this.startTimer(this.timerCurrentStatus.currentTime);
     } else if (
-      this.timerCurrentStatus.currentState == 'not started' &&
+      this.timerCurrentStatus.currentState == TimerModel.notStartedState &&
       this.timerLimitFinal
     ) {
       this.resetEverything();
@@ -44,14 +45,14 @@ export class TimerComponent implements OnInit {
 
   startTimer(startTime: any) {
     clearInterval(this.timerInterval);
-    this.setCurrentStatus('started', this.currentTimer);
-    this.setDateAndTimeOccurance('Started');
+    this.setCurrentStatus(TimerModel.startedState, this.currentTimer);
+    this.setDateAndTimeOccurance(TimerModel.startedState);
     this.countChange(true);
     this.currentTimer = startTime;
     this.timerInterval = setInterval(() => {
       if (this.currentTimer <= 0) {
         clearInterval(this.timerInterval);
-        this.setCurrentStatus('not started', this.currentTimer);
+        this.setCurrentStatus(TimerModel.notStartedState, this.currentTimer);
       } else {
         this.currentTimer -= 1;
       }
@@ -61,11 +62,11 @@ export class TimerComponent implements OnInit {
   pauseTimer(pauseTime: any) {
     this.pauseTime = pauseTime;
     clearInterval(this.timerInterval);
-    if (this.timerCurrentStatus.currentState == 'started') {
+    if (this.timerCurrentStatus.currentState == TimerModel.startedState) {
       this.collectPausedTime();
-      this.setDateAndTimeOccurance('Paused');
+      this.setDateAndTimeOccurance(TimerModel.pausedState);
       this.countChange(false);
-      this.setCurrentStatus('paused', this.currentTimer);
+      this.setCurrentStatus(TimerModel.pausedState, this.currentTimer);
     }
   }
 
@@ -75,7 +76,7 @@ export class TimerComponent implements OnInit {
     this.currentTimer = null;
     this.resetCompleterTime = false;
     this.resetEverything();
-    this.setCurrentStatus('not started', this.currentTimer);
+    this.setCurrentStatus(TimerModel.notStartedState, this.currentTimer);
   }
 
   setCurrentStatus(status: any, timer: any) {

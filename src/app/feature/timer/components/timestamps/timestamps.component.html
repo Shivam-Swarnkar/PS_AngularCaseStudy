@@ -1,5 +1,5 @@
 <div class="timeStamp">
   <p *ngFor="let dateAndTime of dateAndTimeOccurance">
-    {{ dateAndTime.stateNow }} at {{ dateAndTime.dateNow }}
+    {{ dateAndTime.stateNow | titlecase }} at {{ dateAndTime.dateNow }}
   </p>
 </div>

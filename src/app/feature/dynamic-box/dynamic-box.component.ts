@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dynamic-box',
@@ -8,15 +8,10 @@ import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 export class DynamicBoxComponent implements OnInit {
   count = 100;
   dataCount: any = [];
-
-  constructor(private renderer: Renderer2, private elemRef: ElementRef) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.dataCount = Array(this.count).fill(this.count);
-    this.renderer.addClass(
-      this.elemRef.nativeElement.children[0].children[0].children[0],
-      'row'
-    );
   }
 
   getValue(value: number) {
